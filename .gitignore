@@ -1,4 +1,2 @@
-.env
-.spotify_token_cache
 __pycache__/
 *.pyc

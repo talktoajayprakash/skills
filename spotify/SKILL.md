@@ -12,7 +12,7 @@ allowed-tools:
 
 This skill uses the Spotify CLI bundled at `~/.claude/skills/spotify/spotify_cli.py` to manage Spotify via the Web API.
 
-The CLI script, `.env` credentials, and token cache all live inside the skill directory so the skill is fully self-contained.
+Credentials and token cache are stored in `~/.spotify/` — outside of any git-tracked directory so they can never be accidentally committed.
 
 **CLI shorthand used below:**
 ```
@@ -38,19 +38,22 @@ SPOTIFY="python3 ~/.claude/skills/spotify/spotify_cli.py"
 2. Copy the **Client ID**
 3. Click **View client secret** and copy the **Client Secret**
 
-### 3. Configure the .env file
+### 3. Configure credentials
 
 ```bash
-cp ~/.claude/skills/spotify/.env.example ~/.claude/skills/spotify/.env
+mkdir -p ~/.spotify
+cp ~/.claude/skills/spotify/.env.example ~/.spotify/.env
 ```
 
-Edit `.env` and fill in your values:
+Edit `~/.spotify/.env` and fill in your values:
 
 ```
 SPOTIPY_CLIENT_ID=paste_client_id_here
 SPOTIPY_CLIENT_SECRET=paste_client_secret_here
 SPOTIPY_REDIRECT_URI=http://127.0.0.1:8888/callback
 ```
+
+Keeping credentials in `~/.spotify/` means they live outside any git repo and can never be accidentally committed.
 
 ### 4. Install the Python dependency
 
@@ -64,7 +67,7 @@ pip install spotipy
 python3 ~/.claude/skills/spotify/spotify_cli.py auth
 ```
 
-A browser window opens — log in with Spotify and click **Agree**. The token is cached at `.spotify_token_cache` and auto-refreshes from then on. You only need to do this once.
+A browser window opens — log in with Spotify and click **Agree**. The token is cached at `~/.spotify/token_cache` and auto-refreshes from then on. You only need to do this once.
 
 ---
 
@@ -182,4 +185,4 @@ python3 ~/.claude/skills/spotify/spotify_cli.py unlike spotify:track:TRACK_ID
 
 - Queue management is limited by Spotify API — you can add to queue but cannot reorder or remove items
 - Playback commands require an active Spotify device. Open Spotify on any device first if commands return "No active device"
-- Token cache lives at `~/.claude/skills/spotify/.spotify_token_cache` and auto-refreshes — no need to re-auth
+- Token cache lives at `~/.spotify/token_cache` and auto-refreshes — no need to re-auth

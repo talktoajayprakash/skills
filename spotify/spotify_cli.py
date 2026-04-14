@@ -21,12 +21,14 @@ SCOPE = (
     "user-library-modify"
 )
 
-CACHE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".spotify_token_cache")
-ENV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+SPOTIFY_DIR = os.path.expanduser("~/.spotify")
+CACHE_PATH = os.path.join(SPOTIFY_DIR, "token_cache")
+ENV_PATH = os.path.join(SPOTIFY_DIR, ".env")
 
 
 def load_env():
-    """Load .env file into environment if it exists."""
+    """Load ~/.spotify/.env into environment if it exists."""
+    os.makedirs(SPOTIFY_DIR, exist_ok=True)
     if os.path.exists(ENV_PATH):
         with open(ENV_PATH) as f:
             for line in f:
@@ -34,6 +36,10 @@ def load_env():
                 if line and not line.startswith("#") and "=" in line:
                     key, _, value = line.partition("=")
                     os.environ.setdefault(key.strip(), value.strip())
+    elif not os.environ.get("SPOTIPY_CLIENT_ID"):
+        print(f"No credentials found. Create {ENV_PATH} with your Spotify app credentials.", file=sys.stderr)
+        print("See the skill's SKILL.md for setup instructions.", file=sys.stderr)
+        sys.exit(1)
 
 
 def get_spotify():
