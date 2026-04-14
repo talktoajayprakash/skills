@@ -19,6 +19,55 @@ The CLI script, `.env` credentials, and token cache all live inside the skill di
 SPOTIFY="python3 ~/.claude/skills/spotify/spotify_cli.py"
 ```
 
+## Setup
+
+### 1. Create a Spotify Developer app
+
+1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and log in with your Spotify account
+2. Click **Create app**
+3. Fill in:
+   - **App name**: anything (e.g. "Claude Code")
+   - **App description**: anything
+   - **Redirect URI**: `http://127.0.0.1:8888/callback` — must be exact
+   - **APIs used**: check **Web API**
+4. Click **Save**
+
+### 2. Get your credentials
+
+1. Open your new app and click **Settings**
+2. Copy the **Client ID**
+3. Click **View client secret** and copy the **Client Secret**
+
+### 3. Configure the .env file
+
+```bash
+cp ~/.claude/skills/spotify/.env.example ~/.claude/skills/spotify/.env
+```
+
+Edit `.env` and fill in your values:
+
+```
+SPOTIPY_CLIENT_ID=paste_client_id_here
+SPOTIPY_CLIENT_SECRET=paste_client_secret_here
+SPOTIPY_REDIRECT_URI=http://127.0.0.1:8888/callback
+```
+
+### 4. Install the Python dependency
+
+```bash
+pip install spotipy
+```
+
+### 5. Authenticate
+
+```bash
+python3 ~/.claude/skills/spotify/spotify_cli.py auth
+```
+
+A browser window opens — log in with Spotify and click **Agree**. The token is cached at `.spotify_token_cache` and auto-refreshes from then on. You only need to do this once.
+
+---
+
 ## When to trigger
 
 Activate this skill whenever the user asks to:
@@ -131,8 +180,6 @@ python3 ~/.claude/skills/spotify/spotify_cli.py unlike spotify:track:TRACK_ID
 
 ## Important Notes
 
-- Credentials: `~/.claude/skills/spotify/.env` (client ID and secret from Spotify Developer Dashboard)
-- Token cache: `~/.claude/skills/spotify/.spotify_token_cache` (auto-refreshes)
-- First-time auth opens a browser for OAuth — user must approve access
 - Queue management is limited by Spotify API — you can add to queue but cannot reorder or remove items
-- The redirect URI must be set to `http://127.0.0.1:8888/callback` in the Spotify Developer App settings
+- Playback commands require an active Spotify device. Open Spotify on any device first if commands return "No active device"
+- Token cache lives at `~/.claude/skills/spotify/.spotify_token_cache` and auto-refreshes — no need to re-auth
