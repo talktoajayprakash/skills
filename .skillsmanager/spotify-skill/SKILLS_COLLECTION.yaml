@@ -1,8 +1,0 @@
-name: spotify-skill
-owner: talktoajayprakash
-skills:
-  - name: spotify
-    path: .agentskills/spotify
-    description: Search songs, manage playlists, control playback queue, and
-      play/pause on Spotify. Use when the user asks anything about Spotify —
-      music, playlists, queue, playing, searching for songs.

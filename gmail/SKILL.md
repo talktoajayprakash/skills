@@ -209,7 +209,7 @@ gws gmail users messages batchModify --params '{"userId":"me"}' \
 
 ## Important Notes
 
-- The `gws` CLI is at `/opt/homebrew/bin/gws`
+- The `gws` CLI — install via `brew install talktoajayprakash/tap/gws` (typically at `/opt/homebrew/bin/gws` on Apple Silicon or `/usr/local/bin/gws` on Intel Mac)
 - Always use `--params '{"userId":"me"}'` for low-level API calls (drafts, messages)
 - Helper commands (`+send`, `+read`, `+triage`, `+reply`, `+forward`) do NOT need userId
 - Draft uploads MUST be from the current working directory — gws blocks paths outside cwd
