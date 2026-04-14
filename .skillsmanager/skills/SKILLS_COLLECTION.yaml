@@ -10,3 +10,9 @@ skills:
     path: .agentskills/gmail
     description: Send, draft, read, reply, forward, and triage Gmail emails using
       the gws CLI. Use when the user asks to do anything with email.
+  - name: gws-google-docs
+    path: .agentskills/gws-google-docs
+    description: Read and edit Google Docs using the gws CLI — insert, delete,
+      replace text, apply formatting, manage headings, lists, tables, and
+      images. Use when the user asks to read, edit, update, or format a Google
+      Doc.
