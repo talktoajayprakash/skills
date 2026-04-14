@@ -6,3 +6,7 @@ skills:
     description: Search songs, manage playlists, control playback queue, and
       play/pause on Spotify. Use when the user asks anything about Spotify —
       music, playlists, queue, playing, searching for songs.
+  - name: gmail
+    path: .agentskills/gmail
+    description: Send, draft, read, reply, forward, and triage Gmail emails using
+      the gws CLI. Use when the user asks to do anything with email.
