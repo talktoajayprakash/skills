@@ -16,3 +16,10 @@ skills:
       replace text, apply formatting, manage headings, lists, tables, and
       images. Use when the user asks to read, edit, update, or format a Google
       Doc.
+  - name: md2pdf
+    path: .agentskills/md2pdf
+    description: Convert a Markdown file into a clean, print-ready PDF. Use when the
+      user asks to render a `.md` to PDF, generate a resume/report PDF from
+      markdown, or produce a polished printable document from a markdown source.
+      Wraps pandoc + Chrome headless and ships with a sensible default
+      stylesheet you can swap out.
